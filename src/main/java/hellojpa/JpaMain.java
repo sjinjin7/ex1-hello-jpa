@@ -47,6 +47,10 @@ public class JpaMain {
             em.persist(member2);
             System.out.println("=======================");
  */
+
+/**
+
+
             Member member = em.find(Member.class, 150L);
             member.setName("ZZZZZ1");
 
@@ -56,6 +60,16 @@ public class JpaMain {
             System.out.println("=======================");
             Member member2 = em.find(Member.class, 150L);
 
+
+
+ */
+
+            Member member = new Member();
+            member.setId(1L);
+            member.setUsername("A");
+            member.setRoleType(RoleType.USER);
+
+            em.persist(member);
 
             tx.commit();
 
