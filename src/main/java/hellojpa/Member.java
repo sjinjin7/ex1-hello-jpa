@@ -6,29 +6,23 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+//@SequenceGenerator(name = "member_seq_generator", sequenceName = "member_seq")
+@TableGenerator(
+        name = "MEMBER_SEQ_GENERATOR",
+        table = "MY_SEQUENCES",
+        pkColumnValue = "MEMBER_SEQ", allocationSize = 1
+)
 public class Member {
 
     @Id
+    @GeneratedValue(
+            strategy = GenerationType.TABLE,
+            generator = "MEMBER_SEQ_GENERATOR"
+    )
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String username;
 
-    private Integer age;
-
-    @Enumerated(EnumType.STRING)
-    private RoleType roleType;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createDate;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastModifiedDate;
-
-    private LocalDate testLocalDate;
-    private LocalDateTime testLocalDateTime;
-
-    @Lob
-    private String description;
 
     //JPA는 엔티티 객체에 리플렉션과 같은 작업을 해야 하기 때문에 기본 생성자가 반드시 존재 해야 한다.
     public Member() {
@@ -50,43 +44,4 @@ public class Member {
         this.username = username;
     }
 
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public RoleType getRoleType() {
-        return roleType;
-    }
-
-    public void setRoleType(RoleType roleType) {
-        this.roleType = roleType;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getLastModifiedDate() {
-        return lastModifiedDate;
-    }
-
-    public void setLastModifiedDate(Date lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }
