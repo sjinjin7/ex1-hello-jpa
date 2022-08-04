@@ -39,4 +39,12 @@ public class Team {
     public void setMembers(List<Member> members) {
         this.members = members;
     }
+
+    /*연관관계 편의 메서드
+    둘중 하나를 정해서 한쪽에 편의 메서드를 만들어 주면 됨*/
+    public void addMember(Member member){
+        member.setTeam(this);
+        members.add(member);
+    }
+
 }
