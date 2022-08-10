@@ -1,5 +1,7 @@
 package hellojpa;
 
+import org.hibernate.Hibernate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -144,6 +146,8 @@ public class JpaMain {
             /*==============*/
 
             /*mappedSuper*/
+
+            /**
             Member member = new Member();
             member.setUsername("user1");
             member.setCreatedBy("kim");
@@ -153,11 +157,35 @@ public class JpaMain {
 
             em.flush();
             em.clear();
+            **/
+
+            /*==============*/
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+
+            em.persist(member1);
+
+            Member member2 = new Member();
+            member2.setUsername("member2");
+
+            em.persist(member2);
+
+
+            em.flush();
+            em.clear();
+
+            Member refMember = em.getReference(Member.class, member1.getId());
+            System.out.println("refMember.getClass() = " + refMember.getClass()); //Proxy
+
+            Hibernate.initialize(refMember);
+
 
             tx.commit();
             System.out.println("=====");
         } catch (Exception e){
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
