@@ -160,6 +160,7 @@ public class JpaMain {
             **/
 
             /*==============*/
+            /**
 
             Member member1 = new Member();
             member1.setUsername("member1");
@@ -179,6 +180,30 @@ public class JpaMain {
             System.out.println("refMember.getClass() = " + refMember.getClass()); //Proxy
 
             Hibernate.initialize(refMember);
+
+             **/
+
+            /*======*/
+
+            Team team = new Team();
+            team.setName("teamA");
+            em.persist(team);
+
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            member1.setTeam(team);
+            em.persist(member1);
+
+            em.flush();
+            em.clear();
+            Member m = em.find(Member.class, member1.getId());
+
+            System.out.println("m = " + m.getTeam().getClass());
+
+            System.out.println("=========");
+            m.getTeam().getName();
+            System.out.println("=========");
+
 
 
             tx.commit();
